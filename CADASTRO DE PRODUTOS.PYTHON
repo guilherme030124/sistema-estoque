@@ -1,0 +1,114 @@
+def menu():
+    print('1-cadastrar produtos: \n'
+        '2-listar produtos: \n'
+        '3-buscar produtos: \n'
+        '4-atualizar quantidades; \n'
+        '5-mostrar estatisticas: \n'
+        '6-remover item: \n' 
+        '7-sair')
+    return
+def cadastro_de_produtos():
+     dados['codigo_produto']=int(input('codigo: '))
+     codigo_existe= False
+     for produto in produtos:
+        if produto['codigo_produto'] == dados['codigo_produto']:
+            codigo_existe=True
+            break
+     if codigo_existe:
+        print('codigo ja cadastrado! ')
+        print('tente novamente')
+     else:
+            dados['nome_produto']=str(input('nome: '))
+            dados['preco_produto']=float(input('preço: '))
+            dados['quantidade_produto']=int(input('quantidade: '))
+            produtos.append(dados.copy())
+def lista_de_produtos():
+        if not produtos:
+            print('nenhum produto cadastrado!')
+        else:
+            for dados in produtos:
+                print(f'produto = {dados['nome_produto']}/ ' ,end='' )
+                print(f'quantidade = {dados['quantidade_produto']}')
+def buscar_produtos():
+    buscar_produto=int(input('codigo do produto: '))
+    encontrou=False
+    for produto in produtos:
+        if produto['codigo_produto'] == buscar_produto:
+            encontrou=True
+            print(f'o produto encontrado {produto['nome_produto']}, quantidade: {produto['quantidade_produto']}!')
+            break
+            if not encontrou:
+                        print('o produto que voce está buscando, nao existe no estoque')
+def atualizar_quantidades(): 
+    codigo_produto=int(input('codigo do produto: '))
+    encontrou=False
+    for produto in produtos:
+        if produto['codigo_produto'] == codigo_produto:
+            encontrou=True
+            alterar_quantidade=int(input('quantidade: '))
+            produto['quantidade_produto'] = alterar_quantidade
+            print('quantidade alterada com sucesso! ')
+            break
+    if not encontrou:
+        print('produto nao localizado!')
+def mostrar_estatisticas():
+        soma=maior=0
+        nome_maior=''
+        valor_estoque=0
+        for produto in produtos:
+            soma+=1
+            if produto['quantidade_produto'] > maior:
+                maior=produto['quantidade_produto']
+                nome_maior=produto['nome_produto']
+                valor_estoque+=produto['quantidade_produto']*produto['preco_produto']
+                            
+        print(f'foram cadastrados = {soma} produtos! ')
+        print(f'o {nome_maior} tem a maior quantidade no estoque= {maior}')
+        print(f'o valor total do estoque é = {valor_estoque}')
+def remover_item():
+        codigo_item=int(input('codigo do item a ser removido: '))
+        encontrou= False
+        for produto in produtos:
+            if produto['codigo_produto'] == codigo_item:
+                encontrou=True
+                produtos.remove(produto)
+                print('item removido com sucesso! ')
+        if not encontrou:
+            print('produto nao localizado')
+def finalizar_programa():
+    print('PROGRAMA FINALIZADO COM SUCESSO, VOLTE SEMPRE!')
+
+produtos=[]
+dados={}
+
+print('MENU'.center(40, '='))
+menu()
+op=' '
+while True:
+    try:
+        op = int(input('escolha um numero entre 1 a 7: '))
+        if 1 <= op <=7:
+#cadastro de produtos   
+            if op == 1:
+               cadastro_de_produtos()
+#lista de produtos                
+            if op == 2:
+                lista_de_produtos()
+#buscar produtos            
+            if op == 3:
+               buscar_produtos()
+#atualizar quantidades                
+            if op == 4:
+               atualizar_quantidades()
+#mostrar estatisticas            
+            if op == 5:
+              mostrar_estatisticas()
+#remover item
+            if op == 6:
+                remover_item()
+#finalizar programa        
+            if op == 7:
+                finalizar_programa()
+                break
+    except:    
+        print('digite um numero inteiro! ')
