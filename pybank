@@ -1,0 +1,110 @@
+cadastro=[]
+while True:
+    print('MENU'.center(40, '='))
+    print('1- criar conta: \n' 
+        '2-depositar: \n'
+        '3-sacar: \n'
+        '4-transferir para outra conta: \n'
+        '5-consultar saldo: \n'
+        '6-listar todas as contas: \n'
+        '7-sair: ')
+    op= int(input('escolha: '))
+    if op == 1:
+        nova_conta={}
+        nova_conta['cpf']=int(input('cpf do titular: '))
+        iguais=False
+        for c in cadastro:
+            if c['cpf'] == nova_conta['cpf']:
+                iguais=True
+                print('cpf ja cadastrado, tente novamente! ')
+                break
+        if not iguais:
+            nova_conta['nome']=str(input('nome do titular: '))
+            try:
+                nova_conta['numero da conta']=int(input('numero da conta: '))
+                nova_conta['saldo'] = 0
+                cadastro.append(nova_conta)
+            except ValueError:
+                print('DIGITE APENAS NUMEROS! ')
+              
+                        
+                    
+    if op == 2:  
+        try:    
+            confirmar_conta=int(input('qual sua conta: '))
+            existe=False
+            for c in cadastro:
+                if confirmar_conta == c['numero da conta'] :
+                    existe=True    
+                    deposito=int(input('qual valor voce deseja depositar: '))
+                    c['saldo'] += deposito
+                    print(f'o seu deposito foi confirmado,valor = {deposito} o seu saldo atual é de {c['saldo']} ')
+            if not existe:
+                print('conta nao localizada ou nao cadastrada! ')
+        except ValueError:
+            print('digite apenas numeros inteiros! ')
+    
+    if op == 3:
+        try:    
+            confirmar_conta=int(input('conta: ')) 
+            existe=False
+            for conta in cadastro:
+                if confirmar_conta == conta['numero da conta']:
+                    existe=True
+                    saque=float(input('qual valor deseja sacar: '))
+                    if saque <= conta['saldo']:
+                        conta['saldo'] -= saque
+                        print(f'saque realizado com sucesso! saldo = {conta["saldo"]}')
+                    else:
+                        print(f'sem saldo suficiente para saque! saldo disponivel = {conta['saldo']}')
+            if not existe:
+                print('conta nao localizada ou nao cadastrada! ')
+        except ValueError:
+            print('digite um numero inteiro! ')
+            
+    if op == 4:    
+        try:
+            localizar_conta=int(input('numero da conta de origem: '))
+            achou=False
+            for localizar in cadastro:
+            #conta origem
+                if localizar_conta == localizar['numero da conta']:
+                    achou=True
+                    conta_destino=int(input('numero da conta destino: '))
+            #conta destino 
+                    localizado=False
+                    for destino in cadastro:
+                        if conta_destino == destino['numero da conta']:
+                            if conta_destino == localizar_conta:
+                                print('conta invalida, nao é possivel realizar transferencia para a mesma conta')
+                                break
+                            localizado=True
+                            transferencia=float(input('valor que deseja transferir: '))
+                            if localizar['saldo'] >= transferencia:
+                                localizar['saldo'] -= transferencia
+                                destino['saldo'] +=transferencia
+                                print(f'transferencia realizada com sucesso! \nconta {localizar['numero da conta']} saldo = {localizar['saldo']} ')
+                                print(f'conta {destino['numero da conta']} saldo ={destino['saldo']}  ')
+                            else:
+                                print('saldo insuficiente! ')
+                    if not localizado:
+                        print(f'conta de numero {conta_destino} nao localizada ou nao cadastrada! ')
+            if not achou:
+                print('conta nao localizada ou nao cadastrada! ')
+        except ValueError:
+            print('digite um numero inteiro! ')
+    
+    if op == 5:
+        try:
+            localizar_conta=int(input('numero da conta: '))
+            for c in cadastro:
+                if c['numero da conta'] == localizar_conta:
+                    print(f'saldo da conta = {c['saldo']} R$')
+        except ValueError:
+            print('digite apenas numeros! ')
+    if op == 6:
+        for c in cadastro:
+            print(f'conta de numero: {c['numero da conta']}// nome do cliente: {c['nome']}// cpf: {c['cpf']}')
+    if op == 7:
+        print('muito obrigado pela visita no nosso aplicativo, volte sempre! ')
+        break
