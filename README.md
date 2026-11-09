@@ -1,3 +1,16 @@
 # Sistema-Estoque
-Sistema de controle de estoque desenvolvido em Python como projeto de estudo, com foco na aplicação de lógica de programação, organização de código e gerenciamento de produtos.
+# Sistema de Controle de Estoque
 
+Projeto desenvolvido em Python para fins de estudo, com o objetivo de praticar lógica de programação, estruturas de dados e organização de código.
+
+## Objetivo
+
+Desenvolver um sistema simples para controle de estoque, permitindo praticar conceitos fundamentais da linguagem Python.
+
+## Tecnologias utilizadas
+
+- Python
+
+## Finalidade
+
+Projeto acadêmico e de aprendizado, desenvolvido para aprimorar conhecimentos em programação e desenvolvimento de software.
